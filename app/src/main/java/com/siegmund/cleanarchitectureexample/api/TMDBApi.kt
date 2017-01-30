@@ -4,12 +4,12 @@ import retrofit2.Call
 import retrofit2.http.GET
 
 interface TMDBApi {
-    @GET("/movie/popular")
+    @GET("movie/popular")
     fun getPopularMovies(): Call<MovieResponse>
 
-    @GET("/movie/latest")
+    @GET("movie/latest")
     fun getLatestMovies(): Call<MovieResponse>
 
-    @GET("/movie/top_rated")
+    @GET("movie/top_rated")
     fun getTopRatedMovies(): Call<MovieResponse>
 }

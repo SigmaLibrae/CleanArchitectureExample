@@ -14,6 +14,7 @@ import com.siegmund.cleanarchitectureexample.R
 import com.siegmund.cleanarchitectureexample.api.Movie
 import android.content.Intent
 import android.support.design.widget.Snackbar
+import android.support.v7.widget.GridLayoutManager
 import android.widget.Toast
 import com.siegmund.cleanarchitectureexample.ui.credits.CreditsActivity
 import com.siegmund.cleanarchitectureexample.ui.details.DetailsActivity
@@ -35,7 +36,7 @@ class MainActivity: MvpActivity<MainView, MainPresenter>(), MainView {
         setSupportActionBar(toolbar)
         ButterKnife.bind(this)
 
-        recyclerView.layoutManager = LinearLayoutManager(this)
+        recyclerView.layoutManager = GridLayoutManager(this, 2)
         recyclerView.adapter = adapter
     }
 

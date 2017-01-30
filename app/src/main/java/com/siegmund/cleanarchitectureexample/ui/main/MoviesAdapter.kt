@@ -49,7 +49,7 @@ class MoviesAdapter(val listener: (Movie) -> Unit): RecyclerView.Adapter<MoviesA
         }
 
         fun configure(url: String?, title: String, subtitle: String) {
-            val uri = Uri.parse(url)
+            val uri = Uri.parse("http://image.tmdb.org/t/p/original/$url")
             Glide.with(itemView.context).load(uri).into(imageView)
             titleView.text = title
             subtitleView.text = subtitle

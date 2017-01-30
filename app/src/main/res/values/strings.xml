@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">CleanArchitectureExample</string>
+    <string name="action_credits">Credits</string>
+    <string name="credits_screen_title">Credits</string>
+    <string name="credits_screen_text">All credits to THE MOVIE DB.</string>
+    <string name="error_message">Api Call failed</string>
+</resources>

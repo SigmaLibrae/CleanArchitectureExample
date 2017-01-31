@@ -1,7 +1,6 @@
 package com.siegmund.cleanarchitectureexample.ui.main
 
 import android.os.Bundle
-import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.Toolbar
 import android.view.Menu
@@ -13,7 +12,9 @@ import com.siegmund.cleanarchitectureexample.App
 import com.siegmund.cleanarchitectureexample.R
 import com.siegmund.cleanarchitectureexample.api.Movie
 import android.content.Intent
+import android.support.design.widget.FloatingActionButton
 import android.support.design.widget.Snackbar
+import android.support.v4.widget.SwipeRefreshLayout
 import android.support.v7.widget.GridLayoutManager
 import android.widget.Toast
 import com.siegmund.cleanarchitectureexample.ui.credits.CreditsActivity
@@ -21,6 +22,8 @@ import com.siegmund.cleanarchitectureexample.ui.details.DetailsActivity
 
 class MainActivity: MvpActivity<MainView, MainPresenter>(), MainView {
     @BindView(R.id.recyclerView) lateinit var recyclerView: RecyclerView
+    @BindView(R.id.swipeRefreshLayout) lateinit var swipeRefreshLayout: SwipeRefreshLayout
+    @BindView(R.id.fab) lateinit var fab: FloatingActionButton
 
     private val adapter = MoviesAdapter { movie -> presenter.onItemClicked(movie) }
 
@@ -38,6 +41,9 @@ class MainActivity: MvpActivity<MainView, MainPresenter>(), MainView {
 
         recyclerView.layoutManager = GridLayoutManager(this, 2)
         recyclerView.adapter = adapter
+        fab.setOnClickListener { presenter.onFabClicked() }
+        swipeRefreshLayout.setOnRefreshListener { presenter.onRefreshPulled() }
+        swipeRefreshLayout.setColorSchemeResources(R.color.colorAccent, R.color.colorPrimary)
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -76,6 +82,10 @@ class MainActivity: MvpActivity<MainView, MainPresenter>(), MainView {
 
     override fun showErrorMessage() {
         Toast.makeText(this, R.string.error_message, Snackbar.LENGTH_LONG).show()
+    }
+
+    override fun refreshItems() {
+        swipeRefreshLayout.isRefreshing = false
     }
 
     companion object {

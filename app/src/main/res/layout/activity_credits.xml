@@ -16,8 +16,10 @@
         android:layout_marginBottom="20dp"/>
 
     <TextView
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:padding="5dp"
         android:text="@string/credits_screen_text"/>
 
 </LinearLayout>

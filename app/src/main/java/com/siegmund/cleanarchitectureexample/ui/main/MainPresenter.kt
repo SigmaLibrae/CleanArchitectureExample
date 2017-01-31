@@ -13,7 +13,7 @@ class MainPresenter: MvpBasePresenter<MainView>() {
     @Inject lateinit var api: TMDBApi
 
     fun onVisible() = Thread {
-        api.getTopRatedMovies().enqueue(object: Callback<MovieResponse> {
+        api.getPopularMovies().enqueue(object : Callback<MovieResponse> {
             override fun onResponse(call: Call<MovieResponse>, response: Response<MovieResponse>) {
                 view?.setItems(response.body().results)
             }
@@ -30,4 +30,8 @@ class MainPresenter: MvpBasePresenter<MainView>() {
     fun onCreditsClicked() = view?.openCreditsScreen()
 
     fun onItemClicked(movie: Movie) = view?.openDetailsScreen(movie)
+
+    fun onFabClicked() = Unit
+
+    fun onRefreshPulled() = view?.refreshItems()
 }

@@ -11,10 +11,14 @@ import javax.inject.Inject
 
 class MainPresenter: MvpBasePresenter<MainView>() {
     @Inject lateinit var api: TMDBApi
+    private var pageCount = 0
+    private var currentPage = 0
 
     fun onVisible() = Thread {
-        api.getPopularMovies().enqueue(object : Callback<MovieResponse> {
+        api.getTopRatedMovies(page = 1).enqueue(object : Callback<MovieResponse> {
             override fun onResponse(call: Call<MovieResponse>, response: Response<MovieResponse>) {
+                currentPage = response.body().page
+                pageCount = response.body().totalPages
                 view?.setItems(response.body().results)
             }
 
@@ -31,7 +35,22 @@ class MainPresenter: MvpBasePresenter<MainView>() {
 
     fun onItemClicked(movie: Movie) = view?.openDetailsScreen(movie)
 
-    fun onFabClicked() = Unit
-
     fun onRefreshPulled() = view?.refreshItems()
+
+    fun onScrolledToEnd() = Thread {
+        if (currentPage + 1 <= pageCount) {
+            api.getTopRatedMovies(page = currentPage + 1).enqueue(object : Callback<MovieResponse> {
+                override fun onResponse(call: Call<MovieResponse>, response: Response<MovieResponse>) {
+                    currentPage = response.body().page
+                    pageCount = response.body().totalPages
+                    view?.addItems(response.body().results)
+                }
+
+                override fun onFailure(call: Call<MovieResponse>?, t: Throwable?) {
+                    view?.showErrorMessage()
+                }
+
+            })
+        }
+    }.start()
 }

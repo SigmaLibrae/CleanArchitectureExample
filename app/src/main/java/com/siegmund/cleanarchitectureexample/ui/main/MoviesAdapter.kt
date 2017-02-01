@@ -15,10 +15,15 @@ import com.siegmund.cleanarchitectureexample.api.Movie
 
 class MoviesAdapter(val listener: (Movie) -> Unit): RecyclerView.Adapter<MoviesAdapter.MovieViewHolder>() {
 
-    var movies: List<Movie> = listOf()
+    var movies: MutableList<Movie> = mutableListOf()
     set(value) {
         field = value
         notifyDataSetChanged()
+    }
+
+    fun addItems(new: List<Movie>) {
+        this.movies.addAll(movies.size, new)
+        notifyItemRangeInserted(this.movies.size, new.size)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolder {

@@ -2,14 +2,12 @@ package com.siegmund.cleanarchitectureexample.api
 
 import retrofit2.Call
 import retrofit2.http.GET
+import retrofit2.http.Query
 
 interface TMDBApi {
     @GET("movie/popular")
-    fun getPopularMovies(): Call<MovieResponse>
-
-    @GET("movie/latest")
-    fun getLatestMovies(): Call<MovieResponse>
+    fun getPopularMovies(@Query("page") page: Int): Call<MovieResponse>
 
     @GET("movie/top_rated")
-    fun getTopRatedMovies(): Call<MovieResponse>
+    fun getTopRatedMovies(@Query("page") page: Int): Call<MovieResponse>
 }

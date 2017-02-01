@@ -12,7 +12,6 @@ import com.siegmund.cleanarchitectureexample.App
 import com.siegmund.cleanarchitectureexample.R
 import com.siegmund.cleanarchitectureexample.api.Movie
 import android.content.Intent
-import android.support.design.widget.FloatingActionButton
 import android.support.design.widget.Snackbar
 import android.support.v4.widget.SwipeRefreshLayout
 import android.support.v7.widget.GridLayoutManager
@@ -23,7 +22,6 @@ import com.siegmund.cleanarchitectureexample.ui.details.DetailsActivity
 class MainActivity: MvpActivity<MainView, MainPresenter>(), MainView {
     @BindView(R.id.recyclerView) lateinit var recyclerView: RecyclerView
     @BindView(R.id.swipeRefreshLayout) lateinit var swipeRefreshLayout: SwipeRefreshLayout
-    @BindView(R.id.fab) lateinit var fab: FloatingActionButton
 
     private val adapter = MoviesAdapter { movie -> presenter.onItemClicked(movie) }
 
@@ -39,9 +37,13 @@ class MainActivity: MvpActivity<MainView, MainPresenter>(), MainView {
         setSupportActionBar(toolbar)
         ButterKnife.bind(this)
 
-        recyclerView.layoutManager = GridLayoutManager(this, 2)
+        val layoutManager = GridLayoutManager(this, resources.getInteger(R.integer.grid_span_count))
+        recyclerView.layoutManager = layoutManager
         recyclerView.adapter = adapter
-        fab.setOnClickListener { presenter.onFabClicked() }
+        recyclerView.addOnScrollListener(PreloadRecyclerViewScrollListener(layoutManager, {
+            presenter.onScrolledToEnd()
+        }))
+
         swipeRefreshLayout.setOnRefreshListener { presenter.onRefreshPulled() }
         swipeRefreshLayout.setColorSchemeResources(R.color.colorAccent, R.color.colorPrimary)
     }
@@ -69,7 +71,13 @@ class MainActivity: MvpActivity<MainView, MainPresenter>(), MainView {
     }
 
     override fun setItems(movies: List<Movie>) {
-        adapter.movies = movies
+        adapter.movies = movies.toMutableList()
+    }
+
+    override fun addItems(movies: List<Movie>) = adapter.addItems(movies)
+
+    override fun refreshItems() {
+        swipeRefreshLayout.isRefreshing = false
     }
 
     override fun openCreditsScreen() = startActivity(Intent(this, CreditsActivity::class.java))
@@ -82,10 +90,6 @@ class MainActivity: MvpActivity<MainView, MainPresenter>(), MainView {
 
     override fun showErrorMessage() {
         Toast.makeText(this, R.string.error_message, Snackbar.LENGTH_LONG).show()
-    }
-
-    override fun refreshItems() {
-        swipeRefreshLayout.isRefreshing = false
     }
 
     companion object {

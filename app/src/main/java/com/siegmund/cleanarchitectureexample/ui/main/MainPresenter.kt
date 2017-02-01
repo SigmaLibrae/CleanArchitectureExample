@@ -37,7 +37,7 @@ class MainPresenter: MvpBasePresenter<MainView>() {
 
     fun onRefreshPulled() = view?.refreshItems()
 
-    fun onScrolledToEnd() = Thread {
+    fun onLoadMore() = Thread {
         if (currentPage + 1 <= pageCount) {
             api.getTopRatedMovies(page = currentPage + 1).enqueue(object : Callback<MovieResponse> {
                 override fun onResponse(call: Call<MovieResponse>, response: Response<MovieResponse>) {

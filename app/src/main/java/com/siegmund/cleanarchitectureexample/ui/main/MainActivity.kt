@@ -40,9 +40,11 @@ class MainActivity: MvpActivity<MainView, MainPresenter>(), MainView {
         val layoutManager = GridLayoutManager(this, resources.getInteger(R.integer.grid_span_count))
         recyclerView.layoutManager = layoutManager
         recyclerView.adapter = adapter
-        recyclerView.addOnScrollListener(PreloadRecyclerViewScrollListener(layoutManager, {
-            presenter.onScrolledToEnd()
-        }))
+        recyclerView.addOnScrollListener(object: EndlessRecyclerOnScrollListener(layoutManager) {
+            override fun onLoadMore(currentPage: Int) {
+                presenter.onLoadMore()
+            }
+        })
 
         swipeRefreshLayout.setOnRefreshListener { presenter.onRefreshPulled() }
         swipeRefreshLayout.setColorSchemeResources(R.color.colorAccent, R.color.colorPrimary)

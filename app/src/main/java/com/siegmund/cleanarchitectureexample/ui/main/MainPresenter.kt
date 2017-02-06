@@ -20,7 +20,7 @@ class MainPresenter: MvpBasePresenter<MainView>() {
 
     fun onCreditsClicked() = view?.openCreditsScreen()
 
-    fun onItemClicked(movie: Movie) = view?.openDetailsScreen(movie)
+    fun onItemClicked(movie: Movie, position: Int) = view?.openDetailsScreen(movie, position)
 
     fun onRefreshPulled() = view?.refreshItems()
 

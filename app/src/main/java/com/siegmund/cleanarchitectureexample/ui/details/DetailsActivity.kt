@@ -2,6 +2,7 @@ package com.siegmund.cleanarchitectureexample.ui.details
 
 import android.net.Uri
 import android.os.Bundle
+import android.view.MenuItem
 import android.widget.ImageView
 import android.widget.TextView
 import butterknife.BindView
@@ -25,6 +26,14 @@ class DetailsActivity : MvpActivity<DetailsView, DetailsPresenter>(), DetailsVie
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_details)
         ButterKnife.bind(this)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            android.R.id.home -> onBackPressed()
+            else              -> return false
+        }
+        return true
     }
 
     override fun onStart() {

@@ -13,7 +13,7 @@ import android.view.LayoutInflater
 import com.siegmund.cleanarchitectureexample.R
 import com.siegmund.cleanarchitectureexample.api.Movie
 
-class MoviesAdapter(val listener: (Movie) -> Unit): RecyclerView.Adapter<MoviesAdapter.MovieViewHolder>() {
+class MoviesAdapter(val listener: (Movie, Int) -> Unit): RecyclerView.Adapter<MoviesAdapter.MovieViewHolder>() {
 
     var movies: MutableList<Movie> = mutableListOf()
     set(value) {
@@ -50,7 +50,7 @@ class MoviesAdapter(val listener: (Movie) -> Unit): RecyclerView.Adapter<MoviesA
 
         init {
             ButterKnife.bind(this, itemView)
-            this.itemView.setOnClickListener { listener(movies[adapterPosition]) }
+            this.itemView.setOnClickListener { listener(movies[adapterPosition], adapterPosition) }
         }
 
         fun configure(url: String?, title: String, subtitle: String) {

@@ -13,8 +13,10 @@ import com.siegmund.cleanarchitectureexample.R
 import com.siegmund.cleanarchitectureexample.api.Movie
 import android.content.Intent
 import android.support.design.widget.Snackbar
+import android.support.v4.app.ActivityOptionsCompat
 import android.support.v4.widget.SwipeRefreshLayout
 import android.support.v7.widget.GridLayoutManager
+import android.view.View
 import android.widget.Toast
 import com.siegmund.cleanarchitectureexample.ui.credits.CreditsActivity
 import com.siegmund.cleanarchitectureexample.ui.details.DetailsActivity
@@ -23,7 +25,7 @@ class MainActivity: MvpActivity<MainView, MainPresenter>(), MainView {
     @BindView(R.id.recyclerView) lateinit var recyclerView: RecyclerView
     @BindView(R.id.swipeRefreshLayout) lateinit var swipeRefreshLayout: SwipeRefreshLayout
 
-    private val adapter = MoviesAdapter { movie -> presenter.onItemClicked(movie) }
+    private val adapter = MoviesAdapter { movie, position -> presenter.onItemClicked(movie, position) }
 
     override fun createPresenter() = MainPresenter()
 
@@ -84,11 +86,14 @@ class MainActivity: MvpActivity<MainView, MainPresenter>(), MainView {
 
     override fun openCreditsScreen() = startActivity(Intent(this, CreditsActivity::class.java))
 
-    override fun openDetailsScreen(movie: Movie) = startActivity(
-            Intent(this, DetailsActivity::class.java).apply {
-                putExtra(Companion.MOVIE_EXTRA, movie)
-            }
-    )
+    override fun openDetailsScreen(movie: Movie, position: Int) {
+        val intent = Intent(this, DetailsActivity::class.java).apply {
+            putExtra(MOVIE_EXTRA, movie)
+        }
+        val view = recyclerView.findViewHolderForAdapterPosition(position).itemView
+        val options = ActivityOptionsCompat.makeSceneTransitionAnimation(this, view, "poster_image");
+        startActivity(intent, options.toBundle());
+    }
 
     override fun showErrorMessage() =
             Toast.makeText(this, R.string.error_message, Snackbar.LENGTH_LONG).show()

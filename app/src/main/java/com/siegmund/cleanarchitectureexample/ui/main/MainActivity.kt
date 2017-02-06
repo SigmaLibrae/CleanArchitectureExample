@@ -90,9 +90,8 @@ class MainActivity: MvpActivity<MainView, MainPresenter>(), MainView {
             }
     )
 
-    override fun showErrorMessage() {
-        Toast.makeText(this, R.string.error_message, Snackbar.LENGTH_LONG).show()
-    }
+    override fun showErrorMessage() =
+            Toast.makeText(this, R.string.error_message, Snackbar.LENGTH_LONG).show()
 
     companion object {
         val MOVIE_EXTRA = "com.siegmund.cleanarchitectureexample.MOVIE"

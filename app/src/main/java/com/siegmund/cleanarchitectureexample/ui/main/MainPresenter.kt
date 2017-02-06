@@ -14,20 +14,7 @@ class MainPresenter: MvpBasePresenter<MainView>() {
     private var pageCount = 0
     private var currentPage = 0
 
-    fun onVisible() = Thread {
-        api.getTopRatedMovies(page = 1).enqueue(object : Callback<MovieResponse> {
-            override fun onResponse(call: Call<MovieResponse>, response: Response<MovieResponse>) {
-                currentPage = response.body().page
-                pageCount = response.body().totalPages
-                view?.setItems(response.body().results)
-            }
-
-            override fun onFailure(call: Call<MovieResponse>?, t: Throwable?) {
-                view?.showErrorMessage()
-            }
-
-        })
-    }.start()
+    fun onVisible() = loadMoviesForPage(page = 1)
 
     fun onInvisible() = Unit
 
@@ -37,20 +24,21 @@ class MainPresenter: MvpBasePresenter<MainView>() {
 
     fun onRefreshPulled() = view?.refreshItems()
 
-    fun onLoadMore() = Thread {
-        if (currentPage + 1 <= pageCount) {
-            api.getTopRatedMovies(page = currentPage + 1).enqueue(object : Callback<MovieResponse> {
-                override fun onResponse(call: Call<MovieResponse>, response: Response<MovieResponse>) {
-                    currentPage = response.body().page
-                    pageCount = response.body().totalPages
-                    view?.addItems(response.body().results)
-                }
+    fun onLoadMore() = if (currentPage + 1 <= pageCount) {
+        loadMoviesForPage(page = currentPage + 1)
+    } else Unit
 
-                override fun onFailure(call: Call<MovieResponse>?, t: Throwable?) {
-                    view?.showErrorMessage()
-                }
+    private fun loadMoviesForPage(page: Int) = Thread {
+        api.getTopRatedMovies(page = page).enqueue(object : Callback<MovieResponse> {
+            override fun onResponse(call: Call<MovieResponse>, response: Response<MovieResponse>) {
+                currentPage = response.body().page
+                pageCount = response.body().totalPages
+                view?.addItems(response.body().results)
+            }
 
-            })
-        }
+            override fun onFailure(call: Call<MovieResponse>?, t: Throwable?) {
+                view?.showErrorMessage()
+            }
+        })
     }.start()
 }

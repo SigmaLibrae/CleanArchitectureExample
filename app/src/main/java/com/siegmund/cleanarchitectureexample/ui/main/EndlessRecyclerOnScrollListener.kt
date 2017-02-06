@@ -9,7 +9,6 @@ abstract class EndlessRecyclerOnScrollListener(private val layoutManager: GridLa
     private var firstVisibleItem = 0
     private var visibleItemCount = 0
     private var totalItemCount = 0
-
     private var currentPage = 1
 
     override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
@@ -19,11 +18,9 @@ abstract class EndlessRecyclerOnScrollListener(private val layoutManager: GridLa
         totalItemCount = layoutManager.itemCount
         firstVisibleItem = layoutManager.findFirstVisibleItemPosition()
 
-        if (loading) {
-            if (totalItemCount > previousTotal) {
-                loading = false
-                previousTotal = totalItemCount
-            }
+        if (loading && totalItemCount > previousTotal) {
+            loading = false
+            previousTotal = totalItemCount
         }
         if (!loading && totalItemCount - visibleItemCount <= firstVisibleItem + VISIBLE_TRESHOLD) {
             currentPage++

@@ -17,7 +17,7 @@ class NetworkModule {
         val apiClient = OkHttpClient.Builder().addInterceptor(TMDBApiInterceptor()).build()
 
         return Retrofit.Builder().apply {
-            baseUrl("https://api.themoviedb.org/3/")
+            baseUrl(TMDBApi.ENDPOINT)
             addConverterFactory(GsonConverterFactory.create(gson))
             client(apiClient)
         }.build().create(TMDBApi::class.java)

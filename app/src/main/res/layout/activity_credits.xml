@@ -9,6 +9,8 @@
     tools:context="com.siegmund.cleanarchitectureexample.ui.credits.CreditsActivity">
 
     <ImageView
+        android:id="@+id/credits_image"
+        android:onClick="onCreditsImageClicked"
         android:layout_width="200dp"
         android:layout_height="200dp"
         android:layout_gravity="center_horizontal"

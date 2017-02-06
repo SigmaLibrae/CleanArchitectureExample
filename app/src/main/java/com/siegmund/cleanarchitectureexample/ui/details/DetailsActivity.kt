@@ -18,13 +18,13 @@ class DetailsActivity : MvpActivity<DetailsView, DetailsPresenter>(), DetailsVie
     @BindView(R.id.details_subtitle) lateinit var subtitleTextView: TextView
     @BindView(R.id.details_description) lateinit var descriptionTextView: TextView
 
-    override fun createPresenter() = DetailsPresenter()
+    override fun createPresenter() =
+            DetailsPresenter(intent.getSerializableExtra(MainActivity.MOVIE_EXTRA) as Movie)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_details)
         ButterKnife.bind(this)
-        presenter.movie = intent.getSerializableExtra(MainActivity.MOVIE_EXTRA) as Movie
     }
 
     override fun onStart() {
@@ -33,13 +33,14 @@ class DetailsActivity : MvpActivity<DetailsView, DetailsPresenter>(), DetailsVie
     }
 
     override fun onStop() {
-        presenter.onInvisble()
+        presenter.onInvisible()
         super.onStop()
     }
 
     override fun configureUI(url: String, title: String, subtitle: String, description: String) {
         val uri = Uri.parse("http://image.tmdb.org/t/p/original/$url")
         Glide.with(this).load(uri).into(headerImageView)
+        setTitle(title)
         titleTextView.text = title
         subtitleTextView.text = subtitle
         descriptionTextView.text = description

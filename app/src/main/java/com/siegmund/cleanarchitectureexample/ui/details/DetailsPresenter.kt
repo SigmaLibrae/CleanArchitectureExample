@@ -3,9 +3,7 @@ package com.siegmund.cleanarchitectureexample.ui.details
 import com.hannesdorfmann.mosby.mvp.MvpBasePresenter
 import com.siegmund.cleanarchitectureexample.api.Movie
 
-class DetailsPresenter: MvpBasePresenter<DetailsView>() {
-    lateinit var movie: Movie
-
+class DetailsPresenter(private val movie: Movie): MvpBasePresenter<DetailsView>() {
     fun onVisible() {
         view?.configureUI(
                 url = movie.posterPath,
@@ -15,5 +13,5 @@ class DetailsPresenter: MvpBasePresenter<DetailsView>() {
         )
     }
 
-    fun onInvisble() = Unit
+    fun onInvisible() = Unit
 }

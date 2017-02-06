@@ -10,4 +10,8 @@ interface TMDBApi {
 
     @GET("movie/top_rated")
     fun getTopRatedMovies(@Query("page") page: Int): Call<MovieResponse>
+
+    companion object {
+        val ENDPOINT = "https://api.themoviedb.org/3/"
+    }
 }

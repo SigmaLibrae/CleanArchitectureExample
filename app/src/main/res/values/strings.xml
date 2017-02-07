@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">CleanArchitectureExample</string>
+    <string name="app_name">MoviesApp</string>
     <string name="action_credits">Credits</string>
     <string name="credits_screen_title">Credits</string>
     <string name="credits_screen_text">All credits to THE MOVIE DB.</string>

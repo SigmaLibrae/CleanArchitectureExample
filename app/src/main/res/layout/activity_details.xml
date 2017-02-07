@@ -6,7 +6,7 @@
     android:id="@+id/activity_details"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.siegmund.cleanarchitectureexample.ui.details.DetailsActivity">
+    tools:context="com.siegmund.moviesapp.ui.details.DetailsActivity">
 
     <android.support.percent.PercentRelativeLayout
         android:layout_width="match_parent"

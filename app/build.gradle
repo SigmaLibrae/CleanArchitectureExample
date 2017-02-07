@@ -5,7 +5,7 @@ android {
     compileSdkVersion 25
     buildToolsVersion "24.0.1"
     defaultConfig {
-        applicationId "com.siegmund.cleanarchitectureexample"
+        applicationId "com.siegmund.moviesapp"
         minSdkVersion 16
         targetSdkVersion 25
         versionCode 1

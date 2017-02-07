@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.siegmund.cleanarchitectureexample.ui.credits.CreditsActivity">
+    tools:context="com.siegmund.moviesapp.ui.credits.CreditsActivity">
 
     <ImageView
         android:id="@+id/credits_image"

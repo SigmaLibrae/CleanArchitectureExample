@@ -37,6 +37,14 @@ dependencies {
     androidTestCompile("com.android.support.test.espresso:espresso-intents:$espresso_version", {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
+    androidTestCompile("com.android.support.test.espresso:espresso-contrib:$espresso_version") {
+        exclude group: 'com.android.support', module: 'support-annotations'
+        exclude group: 'com.android.support', module: 'support-design'
+        exclude group: 'com.android.support', module: 'support-v4'
+        exclude group: 'com.android.support', module: 'appcompat-v7'
+        exclude module: 'recyclerview-v7'
+        exclude module: 'design'
+    }
 
     compile "com.android.support:appcompat-v7:$support_version"
     compile "com.android.support:design:$support_version"

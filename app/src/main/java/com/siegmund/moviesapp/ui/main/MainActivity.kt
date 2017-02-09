@@ -17,6 +17,7 @@ import android.support.v4.widget.SwipeRefreshLayout
 import android.support.v7.widget.GridLayoutManager
 import android.widget.Toast
 import com.siegmund.moviesapp.App
+import com.siegmund.moviesapp.BuildConfig
 import com.siegmund.moviesapp.ui.credits.CreditsActivity
 import com.siegmund.moviesapp.ui.details.DetailsActivity
 
@@ -38,17 +39,19 @@ class MainActivity: MvpActivity<MainView, MainPresenter>(), MainView {
         setSupportActionBar(toolbar)
         ButterKnife.bind(this)
 
-        val layoutManager = GridLayoutManager(this, resources.getInteger(R.integer.grid_span_count))
-        recyclerView.layoutManager = layoutManager
-        recyclerView.adapter = adapter
-        recyclerView.addOnScrollListener(object: EndlessRecyclerOnScrollListener(layoutManager) {
-            override fun onLoadMore(currentPage: Int) {
-                presenter.onLoadMore()
-            }
-        })
+        if (BuildConfig.TMDB_API_KEY != "<your api key>") {
+            val layoutManager = GridLayoutManager(this, resources.getInteger(R.integer.grid_span_count))
+            recyclerView.layoutManager = layoutManager
+            recyclerView.adapter = adapter
+            recyclerView.addOnScrollListener(object : EndlessRecyclerOnScrollListener(layoutManager) {
+                override fun onLoadMore(currentPage: Int) {
+                    presenter.onLoadMore()
+                }
+            })
 
-        swipeRefreshLayout.setOnRefreshListener { presenter.onRefreshPulled() }
-        swipeRefreshLayout.setColorSchemeResources(R.color.colorAccent, R.color.colorPrimary)
+            swipeRefreshLayout.setOnRefreshListener { presenter.onRefreshPulled() }
+            swipeRefreshLayout.setColorSchemeResources(R.color.colorAccent, R.color.colorPrimary)
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -65,7 +68,11 @@ class MainActivity: MvpActivity<MainView, MainPresenter>(), MainView {
 
     override fun onStart() {
         super.onStart()
-        presenter.onVisible()
+        if (BuildConfig.TMDB_API_KEY != "<your api key>") {
+            presenter.onVisible()
+        } else {
+            Toast.makeText(this, R.string.api_key_not_set, Toast.LENGTH_LONG).show()
+        }
     }
 
     override fun onStop() {

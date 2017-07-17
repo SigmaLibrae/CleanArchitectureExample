@@ -29,7 +29,7 @@ class MainPresenter: MvpBasePresenter<MainView>() {
     } else Unit
 
     private fun loadMoviesForPage(page: Int) = Thread {
-        api.getTopRatedMovies(page = page).enqueue(object : Callback<MovieResponse> {
+        api.getPopularMovies(page = page).enqueue(object : Callback<MovieResponse> {
             override fun onResponse(call: Call<MovieResponse>, response: Response<MovieResponse?>) {
                 response.body()?.let {
                     currentPage = it.page

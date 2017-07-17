@@ -37,11 +37,7 @@ class MoviesAdapter(val listener: (Movie, Int) -> Unit): RecyclerView.Adapter<Mo
 
     override fun onBindViewHolder(holder: MovieViewHolder, position: Int) {
         movies[position].let {
-            holder.configure(
-                    url = it.posterPath,
-                    title = it.title,
-                    subtitle = it.releaseDate.asGermanDate()
-            )
+            holder.configure(url = it.posterPath)
         }
     }
 
@@ -49,19 +45,15 @@ class MoviesAdapter(val listener: (Movie, Int) -> Unit): RecyclerView.Adapter<Mo
 
     inner class MovieViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         @BindView(R.id.image) lateinit var imageView: ImageView
-        @BindView(R.id.title) lateinit var titleView: TextView
-        @BindView(R.id.subtitle) lateinit var subtitleView: TextView
 
         init {
             ButterKnife.bind(this, itemView)
             this.itemView.setOnClickListener { listener(movies[adapterPosition], adapterPosition) }
         }
 
-        fun configure(url: String?, title: String, subtitle: String) {
+        fun configure(url: String?) {
             val uri = Uri.parse("http://image.tmdb.org/t/p/original/$url")
             Glide.with(itemView.context).load(uri).into(imageView)
-            titleView.text = title
-            subtitleView.text = subtitle
         }
     }
 }

@@ -5,4 +5,8 @@
     <string name="credits_screen_text">All credits to THE MOVIE DB.</string>
     <string name="error_message">Api Call failed</string>
     <string name="api_key_not_set">Api key required</string>
+
+    <string name="details_title">Title</string>
+    <string name="details_subtitle">Release Date</string>
+    <string name="details_description">Description</string>
 </resources>

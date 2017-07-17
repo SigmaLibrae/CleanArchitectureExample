@@ -6,52 +6,84 @@
     android:id="@+id/activity_details"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:padding="15dp"
     tools:context="com.siegmund.moviesapp.ui.details.DetailsActivity">
 
-    <android.support.percent.PercentRelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <ImageView
-            android:id="@+id/details_header_image"
-            android:transitionName="poster_image"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            app:layout_aspectRatio="67%"
-            app:layout_widthPercent="100%"/>
-
-    </android.support.percent.PercentRelativeLayout>
-
     <LinearLayout
-        android:layout_alignParentBottom="true"
-        android:orientation="vertical"
+        android:id="@+id/details_cover_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/detailsBackground"
-        android:paddingTop="10dp"
-        android:paddingBottom="10dp">
+        android:orientation="horizontal">
 
-        <TextView
-            android:id="@+id/details_title"
-            android:padding="5dp"
-            android:textColor="@android:color/white"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+        <android.support.percent.PercentRelativeLayout
+            android:layout_weight="0.5"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content">
 
-        <TextView
-            android:id="@+id/details_subtitle"
-            android:padding="5dp"
-            android:textColor="@android:color/white"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            <ImageView
+                android:id="@+id/details_header_image"
+                android:transitionName="poster_image"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                app:layout_aspectRatio="67%"
+                app:layout_widthPercent="100%"/>
 
-        <TextView
-            android:id="@+id/details_description"
-            android:padding="5dp"
-            android:textColor="@android:color/white"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+        </android.support.percent.PercentRelativeLayout>
 
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.5"
+            android:orientation="vertical"
+            android:paddingLeft="20dp"
+            android:paddingStart="20dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/details_title"
+                android:textColor="@color/colorPrimaryDark"/>
+
+            <TextView
+                android:id="@+id/details_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:textColor="@color/colorPrimaryDark"/>
+
+            <TextView
+                android:layout_marginTop="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/details_subtitle"
+                android:textColor="@color/colorPrimaryDark"/>
+
+            <TextView
+                android:id="@+id/details_subtitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:textColor="@color/colorPrimaryDark"/>
+
+        </LinearLayout>
     </LinearLayout>
+
+    <TextView
+        android:id="@+id/details_description_title"
+        android:text="@string/details_description"
+        android:layout_below="@id/details_cover_layout"
+        android:layout_marginTop="20dp"
+        android:padding="5dp"
+        android:textColor="@color/colorPrimaryDark"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:id="@+id/details_description"
+        android:layout_below="@id/details_description_title"
+        android:padding="5dp"
+        android:textColor="@color/colorPrimaryDark"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
 
 </RelativeLayout>

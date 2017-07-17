@@ -12,6 +12,10 @@ import com.bumptech.glide.Glide
 import android.view.LayoutInflater
 import com.siegmund.moviesapp.R
 import com.siegmund.moviesapp.api.Movie
+import com.siegmund.moviesapp.ui.util.asGermanDate
+import java.text.SimpleDateFormat
+import java.util.*
+import java.util.Locale.GERMAN
 
 class MoviesAdapter(val listener: (Movie, Int) -> Unit): RecyclerView.Adapter<MoviesAdapter.MovieViewHolder>() {
 
@@ -36,7 +40,7 @@ class MoviesAdapter(val listener: (Movie, Int) -> Unit): RecyclerView.Adapter<Mo
             holder.configure(
                     url = it.posterPath,
                     title = it.title,
-                    subtitle = it.releaseDate
+                    subtitle = it.releaseDate.asGermanDate()
             )
         }
     }

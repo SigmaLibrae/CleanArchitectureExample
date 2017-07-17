@@ -38,8 +38,7 @@ class MainActivity: MvpActivity<MainView, MainPresenter>(), MainView {
         val toolbar = findViewById(R.id.toolbar) as Toolbar
         setSupportActionBar(toolbar)
         ButterKnife.bind(this)
-
-        if (BuildConfig.TMDB_API_KEY != "<your api key>") {
+        if (BuildConfig.TMDB_API_KEY != "<api key>") {
             val layoutManager = GridLayoutManager(this, resources.getInteger(R.integer.grid_span_count))
             recyclerView.layoutManager = layoutManager
             recyclerView.adapter = adapter
@@ -68,7 +67,7 @@ class MainActivity: MvpActivity<MainView, MainPresenter>(), MainView {
 
     override fun onStart() {
         super.onStart()
-        if (BuildConfig.TMDB_API_KEY != "<your api key>") {
+        if (BuildConfig.TMDB_API_KEY != "<api key>") {
             presenter.onVisible()
         } else {
             Toast.makeText(this, R.string.api_key_not_set, Toast.LENGTH_LONG).show()

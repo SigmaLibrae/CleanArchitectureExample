@@ -30,10 +30,12 @@ class MainPresenter: MvpBasePresenter<MainView>() {
 
     private fun loadMoviesForPage(page: Int) = Thread {
         api.getTopRatedMovies(page = page).enqueue(object : Callback<MovieResponse> {
-            override fun onResponse(call: Call<MovieResponse>, response: Response<MovieResponse>) {
-                currentPage = response.body().page
-                pageCount = response.body().totalPages
-                view?.addItems(response.body().results)
+            override fun onResponse(call: Call<MovieResponse>, response: Response<MovieResponse?>) {
+                response.body()?.let {
+                    currentPage = it.page
+                    pageCount = it.totalPages
+                    view?.addItems(it.results)
+                }
             }
 
             override fun onFailure(call: Call<MovieResponse>?, t: Throwable?) {

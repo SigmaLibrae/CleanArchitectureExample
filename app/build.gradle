@@ -1,9 +1,10 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-kapt'
 
 android {
     compileSdkVersion 25
-    buildToolsVersion "24.0.1"
+    buildToolsVersion '25.0.3'
     defaultConfig {
         applicationId "com.siegmund.moviesapp"
         minSdkVersion 16
@@ -23,10 +24,6 @@ android {
     sourceSets {
         main.java.srcDirs += 'src/main/kotlin'
     }
-}
-
-kapt {
-    generateStubs = true
 }
 
 dependencies {
@@ -55,12 +52,12 @@ dependencies {
 
     compile "com.squareup.retrofit2:retrofit:$retrofit_version"
     compile "com.squareup.retrofit2:converter-gson:$retrofit_version"
-    compile 'com.squareup.okhttp3:okhttp:3.5.0'
-    compile 'com.google.code.gson:gson:2.4'
+    compile "com.squareup.okhttp3:okhttp:$okhttp"
+    compile "com.google.code.gson:gson:$gson"
     kapt "com.google.dagger:dagger-compiler:$dagger_version"
     compile "com.google.dagger:dagger:$dagger_version"
-    compile 'com.github.bumptech.glide:glide:3.7.0'
-    compile 'com.hannesdorfmann.mosby:mvp:2.0.1'
+    compile "com.github.bumptech.glide:glide:$glide"
+    compile "com.hannesdorfmann.mosby:mvp:$mosby"
     compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     compile "com.jakewharton:butterknife:$butterknife_version"
     kapt("com.jakewharton:butterknife-compiler:$butterknife_version") {

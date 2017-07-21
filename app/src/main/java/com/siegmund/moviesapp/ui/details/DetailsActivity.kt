@@ -3,29 +3,20 @@ package com.siegmund.moviesapp.ui.details
 import android.net.Uri
 import android.os.Bundle
 import android.view.MenuItem
-import android.widget.ImageView
-import android.widget.TextView
-import butterknife.BindView
-import butterknife.ButterKnife
 import com.bumptech.glide.Glide
 import com.hannesdorfmann.mosby.mvp.MvpActivity
 import com.siegmund.moviesapp.R
 import com.siegmund.moviesapp.api.Movie
 import com.siegmund.moviesapp.ui.main.MainActivity
+import kotlinx.android.synthetic.main.activity_details.*
 
 class DetailsActivity : MvpActivity<DetailsView, DetailsPresenter>(), DetailsView {
-    @BindView(R.id.details_header_image) lateinit var headerImageView: ImageView
-    @BindView(R.id.details_title) lateinit var titleTextView: TextView
-    @BindView(R.id.details_subtitle) lateinit var subtitleTextView: TextView
-    @BindView(R.id.details_description) lateinit var descriptionTextView: TextView
-
     override fun createPresenter() =
             DetailsPresenter(intent.getSerializableExtra(MainActivity.MOVIE_EXTRA) as Movie)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_details)
-        ButterKnife.bind(this)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -48,10 +39,10 @@ class DetailsActivity : MvpActivity<DetailsView, DetailsPresenter>(), DetailsVie
 
     override fun configureUI(url: String, title: String, subtitle: String, description: String) {
         val uri = Uri.parse("http://image.tmdb.org/t/p/original/$url")
-        Glide.with(this).load(uri).into(headerImageView)
+        Glide.with(this).load(uri).into(detailsHeaderImage)
         setTitle(title)
-        titleTextView.text = title
-        subtitleTextView.text = subtitle
-        descriptionTextView.text = description
+        detailsTitle.text = title
+        detailsSubtitle.text = subtitle
+        detailsDescription.text = description
     }
 }

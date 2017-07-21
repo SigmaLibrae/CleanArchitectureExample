@@ -4,21 +4,13 @@ import android.net.Uri
 import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.TextView
-import butterknife.BindView
-import butterknife.ButterKnife
 import com.bumptech.glide.Glide
 import android.view.LayoutInflater
 import com.siegmund.moviesapp.R
 import com.siegmund.moviesapp.api.Movie
-import com.siegmund.moviesapp.ui.util.asGermanDate
-import java.text.SimpleDateFormat
-import java.util.*
-import java.util.Locale.GERMAN
+import kotlinx.android.synthetic.main.movie_card_view.view.*
 
 class MoviesAdapter(val listener: (Movie, Int) -> Unit): RecyclerView.Adapter<MoviesAdapter.MovieViewHolder>() {
-
     var movies: MutableList<Movie> = mutableListOf()
     set(value) {
         field = value
@@ -44,16 +36,13 @@ class MoviesAdapter(val listener: (Movie, Int) -> Unit): RecyclerView.Adapter<Mo
     override fun getItemCount() = movies.size
 
     inner class MovieViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        @BindView(R.id.image) lateinit var imageView: ImageView
-
         init {
-            ButterKnife.bind(this, itemView)
             this.itemView.setOnClickListener { listener(movies[adapterPosition], adapterPosition) }
         }
 
         fun configure(url: String?) {
             val uri = Uri.parse("http://image.tmdb.org/t/p/original/$url")
-            Glide.with(itemView.context).load(uri).into(imageView)
+            Glide.with(itemView.context).load(uri).into(itemView.movieCover)
         }
     }
 }

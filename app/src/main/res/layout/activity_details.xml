@@ -21,7 +21,7 @@
             android:layout_height="wrap_content">
 
             <ImageView
-                android:id="@+id/details_header_image"
+                android:id="@+id/detailsHeaderImage"
                 android:transitionName="poster_image"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
@@ -45,7 +45,7 @@
                 android:textColor="@color/colorPrimaryDark"/>
 
             <TextView
-                android:id="@+id/details_title"
+                android:id="@+id/detailsTitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="5dp"
@@ -59,7 +59,7 @@
                 android:textColor="@color/colorPrimaryDark"/>
 
             <TextView
-                android:id="@+id/details_subtitle"
+                android:id="@+id/detailsSubtitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="5dp"
@@ -79,7 +79,7 @@
         android:layout_height="wrap_content" />
 
     <TextView
-        android:id="@+id/details_description"
+        android:id="@+id/detailsDescription"
         android:layout_below="@id/details_description_title"
         android:padding="5dp"
         android:textColor="@color/colorPrimaryDark"

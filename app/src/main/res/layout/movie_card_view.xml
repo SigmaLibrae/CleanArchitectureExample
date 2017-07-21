@@ -13,7 +13,7 @@
         android:layout_height="wrap_content">
 
         <ImageView
-            android:id="@+id/image"
+            android:id="@+id/movieCover"
             android:transitionName="poster_image"
             android:layout_width="0dp"
             android:layout_height="0dp"
